@@ -2,6 +2,7 @@
     border: 1px solid black;
     height: 50px;
     box-sizing: content-box;
+    margin: 10px 0;
 }
 
 .track__item {

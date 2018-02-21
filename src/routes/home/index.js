@@ -8,20 +8,34 @@ export default class Home extends Component {
         progress: 0
     }
 
-    componentDidMount() {
-        this.id = setInterval(() => this.setState({ progress: ++this.state.progress }), 16);
+    start = () => {
+        this.setState({ progress: 0 });
+
+        this.id = setInterval(() => {
+            this.setState({ progress: ++this.state.progress });
+
+            if (this.state.progress >= 100) {
+                this.stop();
+            }
+        }, 16);
     }
 
-    componentWillUnmount() {
+    stop = () => {
         clearTimeout(this.id);
     }
 
     render() {
         const { progress } = this.state;
 
+        const numTracks = 5;
+
+        const tracks = Array.from(Array(numTracks).keys()).map(() => <Track progress={progress} />);
+
         return (
             <div class={style.home}>
-                <Track progress={progress} />
+                <button onClick={this.start}>Start</button>
+                <button onClick={this.stop}>Stop</button>
+                {tracks}
             </div>
         );
     }
