@@ -2,6 +2,10 @@
 
 A library for tweening/easer functions, as well a visualization of each easing function with tweakable parameters.
 
+# Visualizer
+
+Check out the [visualizer](/build/index.html)
+
 ## CLI Commands
 
 ``` bash
