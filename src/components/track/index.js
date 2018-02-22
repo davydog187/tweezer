@@ -22,7 +22,7 @@ export default class Track extends Component {
     }
 
     render() {
-        const { progress } = this.props;
+        const { name, progress } = this.props;
 
         const distance = this.computeDistance(progress);
 
@@ -31,8 +31,11 @@ export default class Track extends Component {
         }
 
         return (
-            <div class={style.track} ref={this.trackRef}>
-                <span style={styles} class={style.track__item}> </span>
+            <div>
+                <label>{name}</label>
+                <div class={style.track} ref={this.trackRef}>
+                    <span style={styles} class={style.track__item}> </span>
+                </div>
             </div>
         );
 

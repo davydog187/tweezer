@@ -2,6 +2,14 @@ import { h, Component } from 'preact';
 import style from './style';
 import Track from "../../components/track";
 
+import Tweezer from "../../../lib/Tweezer";
+
+const EXAMPLES = [
+    { name: "linear", easer: val => val },
+    { name: "out-quart", easer: t => 1-(--t)*t*t*t },
+    { name: "in-out-cubic", easer: t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 }
+];
+
 export default class Home extends Component {
 
     state = {
@@ -11,17 +19,18 @@ export default class Home extends Component {
     start = () => {
         this.setState({ progress: 0 });
 
-        this.id = setInterval(() => {
-            this.setState({ progress: ++this.state.progress });
+        this.tweezer = new Tweezer({
+            duration: 1000
+        });
 
-            if (this.state.progress >= 100) {
-                this.stop();
-            }
-        }, 16);
+        this.tweezer.onTick(percent => this.setState({ progress: percent }));
+        this.tweezer.onFinished(() => console.info("finished!"));
+
+        this.tweezer.start();
     }
 
     stop = () => {
-        clearTimeout(this.id);
+        this.tweezer.stop();
     }
 
     render() {
@@ -29,7 +38,7 @@ export default class Home extends Component {
 
         const numTracks = 5;
 
-        const tracks = Array.from(Array(numTracks).keys()).map(() => <Track progress={progress} />);
+        const tracks = EXAMPLES.map(({ name, easer }) => <Track name={name} progress={easer(progress) * 100} />);
 
         return (
             <div class={style.home}>
