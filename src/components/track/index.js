@@ -18,7 +18,7 @@ export default class Track extends Component {
             return 0;
         }
 
-        return (this.track.offsetWidth - 50) * (clamp(progress) / 100);
+        return (this.track.offsetWidth - 20) * (clamp(progress) / 100);
     }
 
     render() {

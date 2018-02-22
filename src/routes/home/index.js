@@ -3,12 +3,7 @@ import style from './style';
 import Track from "../../components/track";
 
 import Tweezer from "../../../lib/Tweezer";
-
-const EXAMPLES = [
-    { name: "linear", easer: val => val },
-    { name: "out-quart", easer: t => 1-(--t)*t*t*t },
-    { name: "in-out-cubic", easer: t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 }
-];
+import * as EASERS from "../../../lib/Eezer";
 
 export default class Home extends Component {
 
@@ -38,7 +33,7 @@ export default class Home extends Component {
 
         const numTracks = 5;
 
-        const tracks = EXAMPLES.map(({ name, easer }) => <Track name={name} progress={easer(progress) * 100} />);
+        const tracks = Object.keys(EASERS).map(name => <Track name={name} progress={EASERS[name](progress) * 100} />);
 
         return (
             <div class={style.home}>
